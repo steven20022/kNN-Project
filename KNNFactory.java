@@ -1,9 +1,5 @@
 public class KNNFactory {
-    public static void main(String[] args) {
-
-    }
-
-    public double predict() {
-
+    public static KNNModel createKnnModel(KNNModel.Distance d, int k) {
+        return new KNNModel(k);
     }
 }

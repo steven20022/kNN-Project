@@ -1,16 +1,17 @@
 import java.math.*;
 
-public class Euclidean extends ComputeDistance {
-    double sum;
-    double first_term = 1;
-    double i = 1;
-    private double d;
-    private double p;
-    private double q;
-    private double j;
+public class Euclidean implements ComputeDistance {
 
-    public double eudlideanEq() {
-        d = Math.sqrt(sum(Math.exp(q - p));
+    @Override
+    public double computeDistance(TrainSample sample) {
+        // TODO Auto-generated method stub
         return 0;
     }
+
+    @Override
+    public int perdict(TrainSample sample) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }
