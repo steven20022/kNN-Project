@@ -1,7 +1,8 @@
-
 public class TrainSample {
-    private double[] trainSample;
-    private int label;
+    double[] trainSample;
+    int label;
+    double distance=-1;
+    int plabel=-1;
 
     public TrainSample(double[] trainSample, int label) {
         this.trainSample = trainSample;

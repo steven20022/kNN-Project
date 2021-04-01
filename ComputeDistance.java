@@ -1,4 +1,3 @@
 interface ComputeDistance {
-    public double computeDistance(TrainSample sample);
-    public int perdict(TrainSample sample);
+    public double computeDistance(TrainSample Sample, TrainSample tSample);
 }
