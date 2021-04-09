@@ -12,7 +12,7 @@ public class TrainSample {
     }
 
     public String toString() {
-        return this.trainSample + "," + this.label;
+        return this.trainSample.toString() + "," + this.label;
     }
 }
 

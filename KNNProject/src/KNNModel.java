@@ -1,9 +1,13 @@
 package KNNProject.src;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class KNNModel {
     double computeDistance;
     private int k;
-    private TrainSample[] trainData = {};
+    public TrainSample[] trainData = {};
     ComputeDistance distance;
 
     public KNNModel() {
@@ -40,6 +44,40 @@ public class KNNModel {
         }
     }
 
+    /*
+    public void addAllDBData(){
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase Samples = mongoClient.getDatabase("samples");
+
+        Samples.find()
+        .forEach(doc -> {
+            double[] tSample = {doc.sample_dimensions_d0,doc.sample_dimensions_d1, doc.sample_dimensions_d2, doc.sample_dimensions_d3};
+            addData(new TrainSample(tSample, doc.sample_label));});
+
+    }*/
+
+    public void addAllFromFile(String dir) throws FileNotFoundException{
+        File file = new File(dir);
+        Scanner s;
+        try {
+            s = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        while(s.hasNextLine()){
+            String line = s.nextLine();
+            String[] arr = line.split(",");
+            double[] tSamplearr = new double[arr.length-1];
+            for (int i = 0; i < tSamplearr.length; i++) {
+                tSamplearr[i] = Double.parseDouble(arr[i]);
+            }
+            addData(new TrainSample(tSamplearr, Integer.parseInt(arr[arr.length-1])));
+            System.out.println(new TrainSample(tSamplearr, Integer.parseInt(arr[arr.length-1])).toString());
+        }
+        s.close();
+    }
+
     enum Distance{
         Euclidean,
         CityBlock
@@ -60,13 +98,13 @@ public class KNNModel {
         }
     }
     
-    public int perdict(TrainSample sample, TrainSample[] data) throws Exception{
+    public int predict(TrainSample sample, TrainSample[] data) throws Exception{
         for (int i = 0; i < data.length; i++) {
             data[i].distance = distance.computeDistance(sample, data[i]);
         }
         data = OrderList(data);
         TrainSample[] Kdata = new TrainSample[this.k];
-        for (int i = 0; i < k-1; i++) {
+        for (int i = 0; i < this.k; i++) {
             Kdata[i] = data[i];
         }
         int a = 0; int b = 0; int c = 0;
@@ -97,6 +135,16 @@ public class KNNModel {
         }else {
             throw new Exception();
         }
+    }
+
+    public int[] predict(TrainSample[] sample, TrainSample[] data) throws Exception{
+        int[] predictArr = new int[sample.length];
+        int i = 0;
+        for (TrainSample sTrainSample : sample) {
+            predictArr[i] = predict(sTrainSample, data);
+            i++;
+        }
+        return predictArr;
     }
 
     public TrainSample[] OrderList(TrainSample[] array){
