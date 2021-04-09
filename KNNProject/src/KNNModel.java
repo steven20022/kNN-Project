@@ -1,3 +1,5 @@
+package KNNProject.src;
+
 public class KNNModel {
     double computeDistance;
     private int k;

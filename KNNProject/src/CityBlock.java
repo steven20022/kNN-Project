@@ -1,3 +1,5 @@
+package KNNProject.src;
+
 public class CityBlock implements ComputeDistance {
 
     @Override

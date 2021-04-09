@@ -1,3 +1,5 @@
+package KNNProject.src;
+
 public class TrainSample {
     double[] trainSample;
     int label;
