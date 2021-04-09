@@ -1,5 +1,3 @@
-import java.math.*;
-
 public class Euclidean implements ComputeDistance {
 
     @Override
